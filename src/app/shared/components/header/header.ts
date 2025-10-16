@@ -1,7 +1,7 @@
-// src/app/shared/components/header/header.ts
-import { Component } from '@angular/core';
+import { Component, HostListener, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { RouterModule } from '@angular/router';
+import { Router, RouterModule } from '@angular/router';
+import { AuthService } from '../../../services/auth.service';
 
 @Component({
   selector: 'app-header',
@@ -11,5 +11,25 @@ import { RouterModule } from '@angular/router';
   styleUrls: ['./header.css']
 })
 export class Header {
-  isMenuOpen = false;
+  // Hacemos authService público para que sea accesible desde el template
+  authService = inject(AuthService);
+  private router = inject(Router);
+  
+  isScrolled = false;
+  mobileMenuOpen = false;
+
+  @HostListener('window:scroll', [])
+  onWindowScroll() {
+    this.isScrolled = window.scrollY > 10;
+  }
+
+  toggleMobileMenu() {
+    this.mobileMenuOpen = !this.mobileMenuOpen;
+  }
+
+  logout(): void {
+    this.authService.logout();
+    this.router.navigate(['/login']);
+    this.mobileMenuOpen = false;
+  }
 }
