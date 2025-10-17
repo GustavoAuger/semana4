@@ -1,7 +1,7 @@
 import { Routes, Router } from '@angular/router';
-import { Home } from './pages/home/home';
+import { HomeComponent } from './pages/home/home.component';
 import { LoginComponent } from './pages/login/login.component';
-import { About } from './pages/about/about';
+import { AboutComponent } from './pages/about/about.component';
 import { authGuard } from './guards/auth.guard';
 import { inject } from '@angular/core';
 import { AuthService } from './services/auth.service';
@@ -21,12 +21,12 @@ export const routes: Routes = [
   },
   { 
     path: '', 
-    component: Home,
+    component: HomeComponent,
     canActivate: [authGuard]
   },
   { 
     path: 'acerca', 
-    component: About,
+    component: AboutComponent,
     canActivate: [authGuard]
   },
   { 
