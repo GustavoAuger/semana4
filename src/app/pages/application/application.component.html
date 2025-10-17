@@ -1,0 +1,78 @@
+<!-- src/app/pages/application/application.component.html -->
+<app-animated-background class="fixed inset-0 -z-10"></app-animated-background>
+
+<div class="container mx-auto px-6 py-24">  <!-- Aumenta el padding superior -->
+  <h1 class="text-6xl font-bold text-center mb-16 text-white drop-shadow-lg">Ofertas de Trabajo</h1>  <!-- Título más grande -->
+
+  <!-- Error Message -->
+  <div *ngIf="error" class="bg-red-900/50 border border-red-500 text-red-200 px-4 py-3 rounded mb-6">
+    {{ error }}
+  </div>
+
+  <!-- Loading -->
+  <div *ngIf="loading" class="text-center text-gray-300">Cargando ofertas...</div>
+
+  <!-- Tabla de Especificaciones -->
+  <div *ngIf="!loading && !selectedOferta" class="bg-gray-800/50 rounded-xl p-8 shadow-xl backdrop-blur-sm">
+    <h2 class="text-3xl font-semibold text-indigo-300 mb-6">Especificaciones</h2>  <!-- Subtítulo más grande -->
+    <div class="overflow-x-auto">
+      <table class="w-full text-left text-gray-300">
+        <thead class="bg-gray-700/50">
+          <tr>
+            <th class="px-4 py-3">Título</th>
+            <th class="px-4 py-3">Ubicación</th>
+            <th class="px-4 py-3">Salario</th>
+            <th class="px-4 py-3">Modalidad</th>
+            <th class="px-4 py-3">Acciones</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let espec of especificaciones" class="border-b border-gray-700 hover:bg-gray-700/30">
+            <td class="px-4 py-3">{{ espec.oferta.titulo }}</td>
+            <td class="px-4 py-3">{{ espec.oferta.localizacion }}</td>
+            <td class="px-4 py-3">{{ espec.oferta.salario_desde }} - {{ espec.oferta.salario_hasta }} {{ espec.oferta.salario_moneda }}</td>
+            <td class="px-4 py-3">{{ espec.modalidad_trabajo }}</td>
+            <td class="px-4 py-3">
+              <button (click)="onSelectEspecificacion(espec.ID)" 
+                      class="cursor-pointer px-4 py-2 bg-indigo-600 hover:bg-indigo-700 text-white rounded-lg transition-colors">
+                Ver Detalles
+              </button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- Detalle de Oferta -->
+  <div *ngIf="selectedOferta" class="bg-gray-800/50 rounded-xl p-8 shadow-xl backdrop-blur-sm">
+    <div class="flex justify-between items-center mb-6">
+      <h2 class="text-4xl font-semibold text-indigo-300">{{ selectedOferta.titulo }}</h2>  <!-- Título del detalle más grande -->
+      <button (click)="closeDetalle()" 
+              class="cursor-pointer px-4 py-2 bg-gray-600 hover:bg-gray-700 text-white rounded-lg transition-colors">
+        Cerrar
+      </button>
+    </div>
+    <div class="grid md:grid-cols-2 gap-8">
+      <div>
+        <h3 class="text-lg font-semibold text-white mb-4">Detalles de la Oferta</h3>
+        <p class="text-gray-300 mb-4"><strong>Estado:</strong> {{ selectedOferta.estado }}</p>
+        <p class="text-gray-300 mb-4"><strong>Descripción:</strong> {{ selectedOferta.descripcion }}</p>
+        <p class="text-gray-300 mb-4"><strong>Ubicación:</strong> {{ selectedOferta.localizacion }}</p>
+        <p class="text-gray-300 mb-4"><strong>Salario:</strong> {{ selectedOferta.salario_desde }} - {{ selectedOferta.salario_hasta }} {{ selectedOferta.salario_moneda }}</p>
+        <p class="text-gray-300 mb-4"><strong>Requisitos:</strong> {{ selectedOferta.requisitos_minimos }}</p>
+      </div>
+      <div>
+        <h3 class="text-lg font-semibold text-white mb-4">Información Adicional</h3>
+        <p class="text-gray-300 mb-4"><strong>Área:</strong> {{ selectedOferta.area }}</p>
+        <p class="text-gray-300 mb-4"><strong>Idioma:</strong> {{ selectedOferta.idioma }}</p>
+        <p class="text-gray-300 mb-4"><strong>País:</strong> {{ selectedOferta.pais }}</p>
+      </div>
+    </div>
+    <div class="mt-8 text-center">
+      <button class="cursor-pointer px-8 py-4 bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-700 hover:to-purple-700 text-white rounded-xl font-semibold transition-all duration-300 shadow-lg">
+        Postular Ahora
+      </button>
+    </div>
+  </div>
+</div>

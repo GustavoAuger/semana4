@@ -2,6 +2,8 @@
   <div class="max-w-4xl mx-auto px-4">
     <h1 class="text-4xl font-bold text-center  bg-gradient-to-r from-indigo-400 via-purple-400 to-pink-400 bg-clip-text text-transparent drop-shadow-lg">Roadmap del Proyecto</h1>
     
+    
+
     <div class="relative w-full h-[400px]">
       <svg class="w-full h-full absolute top-0 left-0" viewBox="0 0 100 100" preserveAspectRatio="none">
         <!-- Pista -->
@@ -60,8 +62,8 @@
           <rect x="15" y="7" width="2" height="1" fill="#FCD34D"/>
           
           <!-- Parte trasera -->
-          <rect x="14" y="26" width="4" height="2" fill="#DC2626"/>
-          <rect x="15" y="28" width="2" height="1" fill="#EF4444"/>
+          <rect x="14" y="26" width="4" height="2" fill="#FFFFFF"/>
+          <rect x="15" y="28" width="2" height="1" fill="#FFFFFF"/>
           
           <!-- Ruedas -->
           <rect x="6" y="12" width="3" height="5" fill="#1F2937" rx="1"/>
@@ -126,9 +128,11 @@
     </div>
     
     <!-- Botón de acción -->
-    <button class=" cursor-pointer w-full bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-700 hover:to-purple-700 text-white font-semibold py-3 px-6 rounded-lg transition-all duration-300 shadow-lg hover:shadow-xl">
-      Ver Detalles
-    </button>
+    <a [href]="selectedSprint.link"  
+   target="_blank" 
+   class="w-full bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-700 hover:to-purple-700 text-white font-semibold py-3 px-6 rounded-lg transition-all duration-300 shadow-lg hover:shadow-xl text-center block">
+  Ver Detalles {{ selectedSprint.week }}
+</a>
   </div>
   
   <!-- Elementos decorativos -->

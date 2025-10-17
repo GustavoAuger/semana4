@@ -20,6 +20,12 @@ interface CarPosition {
   angle: number;
   scale: number;
 }
+interface SprintDetail {
+  week: number;
+  title: string;
+  description: string;
+  link?: string;  // Agrega link opcional
+}
 
 @Component({
   selector: 'app-roadmap',
@@ -32,6 +38,7 @@ export class RoadmapComponent implements OnInit, OnDestroy {
   @Input() currentWeek: number = 1; 
   @Input() totalWeeks: number = 8;
   @Input() sprintDetails: SprintDetail[] = [];
+  
 
   weeks: number[] = [];
   selectedSprint: SprintDetail | null = null;
@@ -174,7 +181,6 @@ export class RoadmapComponent implements OnInit, OnDestroy {
   }
   
 
-  // Lógica de posición y rotación del auto: AQUÍ ESTÁ EL CAMBIO CLAVE
   private updateCarPosition(): void {
   const points = this.getSprintPoints();
   
@@ -185,8 +191,7 @@ export class RoadmapComponent implements OnInit, OnDestroy {
   if (!this.isAnimating && this.pathQueue.length === 0) {
     const currentPoint = points[this.currentSegmentEnd];
     if (currentPoint) {
-      // Corrección de ángulo para estado estático: 
-      // Se usa 180 para invertir la dirección si el último movimiento fue hacia atrás.
+ 
       let finalPistaAngle = currentPoint.angle;
       if (this.currentSegmentStart > this.currentSegmentEnd) {
          finalPistaAngle = this.normalizeAngleDiff(finalPistaAngle + 180);

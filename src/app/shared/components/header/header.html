@@ -15,7 +15,7 @@
         <a routerLink="/" class="text-gray-300 hover:text-white transition-colors">Inicio</a>
         <a routerLink="/aplicacion" class="text-gray-300 hover:text-white transition-colors">Aplicación</a>
         <a routerLink="/acerca" class="text-gray-300 hover:text-white transition-colors">Acerca de</a>
-        <a routerLink="/contacto" class="text-gray-300 hover:text-white transition-colors">Contacto</a>
+        <!--<a routerLink="/contacto" class="text-gray-300 hover:text-white transition-colors">Contacto</a>-->
       </nav>
 
       <!-- Menú de usuario -->
@@ -69,10 +69,10 @@
          class="block px-3 py-2 rounded-md text-base font-medium text-gray-300 hover:bg-gray-800">
         Acerca de
       </a>
-      <a routerLink="/contacto" 
+        <!--<a routerLink="/contacto" 
          class="block px-3 py-2 rounded-md text-base font-medium text-gray-300 hover:bg-gray-800">
         Contacto
-      </a>
+      </a>-->
 
       <ng-container *ngIf="authService.isAuthenticated()">
         <div class="pt-4 border-t border-gray-800">
