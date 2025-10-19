@@ -3,10 +3,42 @@
 ## Descripción
 Proyecto desarrollado durante el programa Eureka, enfocado en la aplicación de habilidades en desarrollo full-stack. Esta plataforma permite gestionar ofertas de trabajo y especificaciones mediante una arquitectura de microservicios, con un frontend moderno en Angular y un backend robusto en Go. Incluye funcionalidades como un roadmap interactivo con animaciones, protección de rutas y almacenamiento local.
 
-## Tecnologías Utilizadas
+## Estructura del Proyecto
 
-### Frontend (Angular)
-- **Angular 17**: Framework principal para el desarrollo de la aplicación web.
+```
+semana3-angular/
+├── src/
+│   ├── app/
+│   │   ├── pages/  # Páginas principales (e.g., home, aplicación)
+│   │   ├── shared/  # Componentes compartidos (header, footer)
+│   │   ├── services/  # Servicios (e.g., job.service.ts para APIs)
+│   │   ├── guards/  # Guards para protección de rutas
+│   │   └── components/  # Otros componentes reutilizables
+│   ├── assets/  # Archivos estáticos (imágenes, íconos)
+│   ├── styles.css  # Estilos globales (Tailwind CSS)
+│   └── index.html  # Punto de entrada HTML
+├── node_modules/  # Dependencias de npm
+├── .gitignore  # Archivos a ignorar en Git (e.g., node_modules/, dist/)
+├── angular.json  # Configuración de Angular CLI
+├── package.json  # Dependencias y scripts
+├── package-lock.json  # Lockfile de versiones de npm
+├── tsconfig.json  # Configuración de TypeScript
+├── tsconfig.app.json  # Configuración de TypeScript para la app
+├── tsconfig.spec.json  # Configuración de TypeScript para tests
+├── tailwind.config.js  # Configuración de Tailwind CSS
+├── .postcssrc.json  # Configuración de PostCSS para Tailwind
+├── Dockerfile  # Para containerizar la app
+├── docker-compose.yml  # Para orquestación con backend
+├── nginx.conf  # Configuración de Nginx para servir la app
+├── README.md  # Este archivo
+├── dist/  # Archivos compilados para producción (si ejecutes `npm run build` manualmente)
+└── .editorconfig  # Configuración para editores de código
+
+```
+
+**Nota**: La carpeta `dist/` NO se genera en la máquina local por defecto (a menos que ejecutes `npm run build` manualmente). Solo existe dentro del contenedor Docker durante la build de la imagen, cuando se ejecuta `npm run build` en la etapa de Node.js. Contiene los archivos compilados de Angular listos para servir en producción vía Nginx. Puedes generarla localmente con `npm run build` para desplegar la app en servidores web estáticos (e.g., Netlify, Vercel) sin necesidad de Docker.
+
+## Tecnologías Utilizadas
 - **TypeScript**: Lenguaje de programación para mayor seguridad y mantenibilidad.
 - **Tailwind CSS**: Framework de estilos para un diseño responsivo y moderno.
 - **SVG Pixel Art**: Diseño personalizado del "autito" en el roadmap, creado con elementos gráficos vectoriales para animaciones fluidas.
@@ -97,13 +129,9 @@ Proyecto desarrollado durante el programa Eureka, enfocado en la aplicación de 
 - **Servicios**: HttpClient para consumir APIs del backend vía Traefik.
 
 
-## Uso de la Aplicación
-1. **Home**: Página de bienvenida con botón para ir a ofertas.
-2. **Aplicación**: Lista ofertas con detalles; usa datos del backend vía Traefik.
-3. **Roadmap**: Selecciona semanas para ver detalles y animar el autito.
-4. **Navegación**: Usa guards para acceder a secciones protegidas.
-5. **Local Storage**: Almacena tokens de sesión y datos del usuario para mantener el estado entre sesiones.
-6. **RxJS**: Manejo de observables para llamadas asíncronas y estado reactivo.
+## 👥 Autor
+
+Gustavo Auger
 
 
 ¡Disfruta explorando el proyecto! 🚀
