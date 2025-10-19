@@ -11,7 +11,6 @@ import { AuthService } from '../../../services/auth.service';
   styleUrls: ['./header.css']
 })
 export class Header {
-  // Hacemos authService público para que sea accesible desde el template
   authService = inject(AuthService);
   private router = inject(Router);
   

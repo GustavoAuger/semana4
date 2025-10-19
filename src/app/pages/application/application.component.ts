@@ -1,4 +1,3 @@
-// src/app/pages/application/application.component.ts
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { JobService, Especificacion, DetalleOferta } from '../../services/job.service';
@@ -42,13 +41,13 @@ loadEspecificaciones() {
 
 
 onSelectEspecificacion(id: number) {
-  console.log('ID seleccionado:', id);  // Verifica en consola
+  console.log('ID seleccionado:', id);  // para debuggg
   this.jobService.getDetalleOferta(id).subscribe({
     next: (data: DetalleOferta) => {
       this.selectedOferta = data.oferta;
     },
     error: (err: any) => {
-      console.log('Error:', err);  // Verifica errores
+      console.log('Error:', err);  // para debugg
     }
   });
 }

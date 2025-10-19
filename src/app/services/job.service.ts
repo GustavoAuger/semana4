@@ -45,10 +45,10 @@ export interface Oferta {
   titulo: string;
 }
 export interface DetalleOferta {
-  especificacion: Especificacion;  // Usa Especificacion que ya tienes
+  especificacion: Especificacion; 
   
 }
-export interface DetalleOferta extends Especificacion {}  // Extiende Especificacion directamente
+export interface DetalleOferta extends Especificacion {}  
 @Injectable({
   providedIn: 'root'
 })
