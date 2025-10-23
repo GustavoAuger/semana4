@@ -6,7 +6,7 @@ Proyecto desarrollado durante el programa Eureka, enfocado en la aplicación de 
 ## Estructura del Proyecto
 
 ```
-semana3-angular/
+semana4/
 ├── src/
 │   ├── app/
 │   │   ├── pages/  # Páginas principales (e.g., home, aplicación)
@@ -72,15 +72,19 @@ semana3-angular/
 - **Sistema Operativo**: Windows, macOS o Linux con soporte para Docker.
 
 ### Pasos para Levantar la Aplicación
-1. **Clona el Repositorio**:
+1. **Clona el Repositorio Frontend**:
    ```bash
-   git clone <url-del-repositorio>
-   cd <directorio-del-proyecto>
+   git clone https://github.com/GustavoAuger/semana4.git
+   ```
+   
+2. **Clona el Repositorio Backend**:
+   ```bash
+   git clone https://github.com/GustavoAuger/semana2.git
    ```
 
-2. **Levanta los Servicios del Backend**:
+3. **Levanta los Servicios del Backend**:
    ```bash
-   cd Go-Micro  # Carpeta del backend
+   cd semana2  # Carpeta del backend
    docker-compose up -d --build
    ```
    - Esto levanta los 6 servicios: 2 DBs, 2 microservicios, Consul y Traefik.
@@ -89,14 +93,14 @@ semana3-angular/
      - Consul UI: `http://localhost:8500`.
      - APIs vía Traefik: `http://localhost/api/v1/ofertas` o `/especificaciones`.
 
-3. **Levanta el Frontend**:
+4. **Levanta el Frontend**:
    ```bash
-   cd ../semana3-angular  # Carpeta del frontend
+   cd ../semana4  # Carpeta del frontend
    docker-compose up -d --build
    ```
    - Accede a la aplicación en `http://localhost:4200`.
 
-4. **Verificación**:
+5. **Verificación**:
    - Todos los servicios corren en `http://localhost` con puertos específicos.
    - Usa `docker ps` para ver contenedores activos.
 
