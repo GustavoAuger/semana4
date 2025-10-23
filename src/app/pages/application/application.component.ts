@@ -24,7 +24,6 @@ export class ApplicationComponent implements OnInit {
     this.loadEspecificaciones();
   }
 
-  // En src/app/pages/application/application.component.ts
 loadEspecificaciones() {
   this.loading = true;
   this.jobService.getEspecificaciones().subscribe({
