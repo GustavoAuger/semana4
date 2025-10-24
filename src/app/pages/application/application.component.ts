@@ -3,12 +3,11 @@ import { CommonModule } from '@angular/common';
 import { JobService, Especificacion, DetalleOferta, CreateOfertaRequest } from '../../services/job.service';
 import { AnimatedBackgroundComponent } from '../../shared/components/animated-background/animated-background.component';
 import { CreateJobFormComponent } from './components/create-job-form/create-job-form.component';
-import { ModalsComponent } from './components/modals/modals.component';
 
 @Component({
   selector: 'app-application',
   standalone: true,
-  imports: [CommonModule, AnimatedBackgroundComponent, CreateJobFormComponent, ModalsComponent],
+  imports: [CommonModule, AnimatedBackgroundComponent, CreateJobFormComponent],
   templateUrl: './application.component.html',
   styleUrls: ['./application.component.css']
 })
