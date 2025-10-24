@@ -17,25 +17,43 @@
     <div class="overflow-x-auto">
       <table class="w-full text-left text-gray-300">
         <thead class="bg-gray-700/50">
-          <tr>
-            <th class="px-4 py-3">Título</th>
-            <th class="px-4 py-3">Ubicación</th>
-            <th class="px-4 py-3">Salario</th>
+           <tr>
+            <th class="px-4 py-3">Categoría</th>
+            <th class="px-4 py-3">Especialidad</th>
+            <th class="px-4 py-3">Sector</th>
+            <th class="px-4 py-3">Tipo Contrato</th>
             <th class="px-4 py-3">Modalidad</th>
+            <th class="px-4 py-3">Nivel Profesional</th>
+            <th class="px-4 py-3">Departamento</th>
+            <th class="px-4 py-3">Años Experiencia</th>
+            <th class="px-4 py-3">Vacantes</th>
             <th class="px-4 py-3">Acciones</th>
           </tr>
         </thead>
         <tbody>
           <tr *ngFor="let espec of especificaciones" class="border-b border-gray-700 hover:bg-gray-700/30">
-            <td class="px-4 py-3">{{ espec.oferta.titulo }}</td>
-            <td class="px-4 py-3">{{ espec.oferta.localizacion }}</td>
-            <td class="px-4 py-3">{{ espec.oferta.salario_desde }} - {{ espec.oferta.salario_hasta }} {{ espec.oferta.salario_moneda }}</td>
+            <td class="px-4 py-3">{{ espec.categoria }}</td>
+            <td class="px-4 py-3">{{ espec.subcategoria }}</td>
+            <td class="px-4 py-3">{{ espec.sector }}</td>
+            <td class="px-4 py-3">{{ espec.tipo_contrato }}</td>
             <td class="px-4 py-3">{{ espec.modalidad_trabajo }}</td>
+            <td class="px-4 py-3">{{ espec.nivel_profesional }}</td>
+            <td class="px-4 py-3">{{ espec.departamento }}</td>
+            <td class="px-4 py-3">{{ espec.experiencia_minima }}</td>
+            <td class="px-4 py-3">{{ espec.numero_vacantes }}</td>
             <td class="px-4 py-3">
-              <button (click)="onSelectEspecificacion(espec.ID)" 
-                      class="cursor-pointer px-4 py-2 bg-indigo-600 hover:bg-indigo-700 text-white rounded-lg transition-colors">
-                Ver Detalles
-              </button>
+              <div class="flex gap-1">
+                <button (click)="onSelectEspecificacion(espec.ID)"
+                        class="cursor-pointer p-2 text-gray-400 hover:text-indigo-300 hover:bg-indigo-600/20 rounded-lg transition-all duration-200 hover:scale-110"
+                        title="Ver Detalles">
+                  🔍
+                </button>
+                <button (click)="onDeleteEspecificacion(espec.ID)"
+                        class="cursor-pointer p-2 text-red-500 hover:text-red-400 hover:bg-red-600/20 rounded-lg transition-all duration-200 hover:scale-110"
+                        title="Eliminar">
+                  ❌
+                </button>
+              </div>
             </td>
           </tr>
         </tbody>
@@ -43,7 +61,7 @@
     </div>
   </div>
 
-  <!-- Detalle de Oferta -->
+   <!-- Detalle de Oferta -->
   <div *ngIf="selectedOferta" class="bg-gray-800/50 rounded-xl p-8 shadow-xl backdrop-blur-sm">
     <div class="flex justify-between items-center mb-6">
       <h2 class="text-4xl font-semibold text-indigo-300">{{ selectedOferta.titulo }}</h2>  <!-- Título del detalle más grande -->

@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 
-export interface Especificacion {
+export interface Especificacion { //entidad primaria
   ID: number;
   CreatedAt: string;
   UpdatedAt: string;
@@ -24,7 +24,7 @@ export interface Especificacion {
   oferta: Oferta;  // Objeto anidado
 }
 
-export interface Oferta {
+export interface Oferta { //entidad secundaria
   ID: number;
   CreatedAt: string;
   UpdatedAt: string;
@@ -45,10 +45,8 @@ export interface Oferta {
   titulo: string;
 }
 export interface DetalleOferta {
-  especificacion: Especificacion; 
-  
-}
-export interface DetalleOferta extends Especificacion {}  
+  oferta: Oferta;
+}  
 @Injectable({
   providedIn: 'root'
 })
@@ -63,5 +61,9 @@ export class JobService {
 
   getDetalleOferta(id: number): Observable<DetalleOferta> {
     return this.http.get<DetalleOferta>(`${this.apiUrl}/especificaciones/${id}`);
+  }
+
+  deleteEspecificacion(id: number): Observable<any> {
+    return this.http.delete(`${this.apiUrl}/especificaciones/${id}`);
   }
 }
