@@ -22,6 +22,15 @@
     {{ error }}
   </div>
 
+  <!-- Modals Component -->
+  <app-modals
+    [deleteConfirmMessage]="deleteConfirmMessage"
+    [deleteSuccessMessage]="deleteSuccessMessage"
+    (confirmDeleteEvent)="confirmDelete()"
+    (cancelDeleteEvent)="cancelDelete()"
+    (closeDeleteSuccessEvent)="closeDeleteSuccessMessage()">
+  </app-modals>
+
   <!-- Loading -->
   <div *ngIf="loading" class="text-center text-gray-300">Cargando ofertas...</div>
 

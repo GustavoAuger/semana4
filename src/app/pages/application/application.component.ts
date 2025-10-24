@@ -3,11 +3,12 @@ import { CommonModule } from '@angular/common';
 import { JobService, Especificacion, DetalleOferta, CreateOfertaRequest } from '../../services/job.service';
 import { AnimatedBackgroundComponent } from '../../shared/components/animated-background/animated-background.component';
 import { CreateJobFormComponent } from './components/create-job-form/create-job-form.component';
+import { ModalsComponent } from './components/modals/modals.component';
 
 @Component({
   selector: 'app-application',
   standalone: true,
-  imports: [CommonModule, AnimatedBackgroundComponent, CreateJobFormComponent],
+  imports: [CommonModule, AnimatedBackgroundComponent, CreateJobFormComponent, ModalsComponent],
   templateUrl: './application.component.html',
   styleUrls: ['./application.component.css']
 })
@@ -16,6 +17,10 @@ export class ApplicationComponent implements OnInit {
   selectedOferta: any = null;  // Usa any o ajusta según necesites
   loading = true;
   error = '';
+  successMessage = ''; // Para mostrar mensaje de éxito de creación
+  deleteConfirmMessage = ''; // Para modal de confirmación de eliminación
+  selectedIdForDelete: number | null = null; // ID de la especificación a eliminar
+  deleteSuccessMessage = ''; // Para mensaje de éxito de eliminación
   showForm = false; // Controla si mostrar el formulario o la lista
 
   constructor(private jobService: JobService) {}
@@ -51,23 +56,40 @@ export class ApplicationComponent implements OnInit {
   }
 
   onDeleteEspecificacion(id: number) {
-    if (confirm('¿Estás seguro de que quieres eliminar esta especificación? Esta acción no se puede deshacer.')) {
-      this.jobService.deleteEspecificacion(id).subscribe({
+    this.deleteConfirmMessage = '¿Estás seguro de que quieres eliminar esta especificación? Esta acción no se puede deshacer.';
+    this.selectedIdForDelete = id;
+  }
+
+  confirmDelete() {
+    if (this.selectedIdForDelete !== null) {
+      this.jobService.deleteEspecificacion(this.selectedIdForDelete).subscribe({
         next: () => {
           // Si el detalle está abierto y es la especificación que se eliminó, cerrarlo
-          if (this.selectedOferta && this.selectedOferta.ID === id) {
+          if (this.selectedOferta && this.selectedOferta.ID === this.selectedIdForDelete) {
             this.selectedOferta = null;
           }
-          // Recargar la lista
-          this.loadEspecificaciones();
-          console.log('Especificación eliminada correctamente');
+          // Mostrar mensaje de éxito
+          this.deleteSuccessMessage = 'Especificación eliminada exitosamente';
+          this.deleteConfirmMessage = ''; // Ocultar modal de confirmación
+          this.selectedIdForDelete = null;
         },
         error: (err: any) => {
           this.error = 'Error al eliminar la especificación: ' + err.message;
-          console.error('Error al eliminar:', err);
+          this.deleteConfirmMessage = ''; // Ocultar modal de confirmación
+          this.selectedIdForDelete = null;
         }
       });
     }
+  }
+
+  cancelDelete() {
+    this.deleteConfirmMessage = ''; // Ocultar modal de confirmación
+    this.selectedIdForDelete = null;
+  }
+
+  closeDeleteSuccessMessage() {
+    this.deleteSuccessMessage = ''; // Ocultar mensaje de éxito de eliminación
+    this.loadEspecificaciones(); // Recargar la lista al aceptar
   }
 
   closeDetalle() {
@@ -83,8 +105,12 @@ export class ApplicationComponent implements OnInit {
   }
 
   onFormSuccess() {
-    // Recargar la lista cuando se crea exitosamente
-    this.loadEspecificaciones();
+    // Mostrar mensaje de éxito y ocultar el formulario
+    this.successMessage = 'Oferta creada exitosamente'; // Mostrar mensaje de éxito
     this.showForm = false;
+  }
+
+  closeSuccessMessage() {
+    this.successMessage = ''; // Ocultar mensaje de éxito
   }
 }
