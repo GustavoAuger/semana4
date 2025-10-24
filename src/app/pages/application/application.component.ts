@@ -1,12 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { JobService, Especificacion, DetalleOferta } from '../../services/job.service';
+import { JobService, Especificacion, DetalleOferta, CreateOfertaRequest } from '../../services/job.service';
 import { AnimatedBackgroundComponent } from '../../shared/components/animated-background/animated-background.component';
+import { CreateJobFormComponent } from './components/create-job-form/create-job-form.component';
 
 @Component({
   selector: 'app-application',
   standalone: true,
-  imports: [CommonModule, AnimatedBackgroundComponent],
+  imports: [CommonModule, AnimatedBackgroundComponent, CreateJobFormComponent],
   templateUrl: './application.component.html',
   styleUrls: ['./application.component.css']
 })
@@ -15,6 +16,7 @@ export class ApplicationComponent implements OnInit {
   selectedOferta: any = null;  // Usa any o ajusta según necesites
   loading = true;
   error = '';
+  showForm = false; // Controla si mostrar el formulario o la lista
 
   constructor(private jobService: JobService) {}
 
@@ -70,5 +72,19 @@ export class ApplicationComponent implements OnInit {
 
   closeDetalle() {
     this.selectedOferta = null;
+  }
+
+  showCreateForm() {
+    this.showForm = true;
+  }
+
+  hideCreateForm() {
+    this.showForm = false;
+  }
+
+  onFormSuccess() {
+    // Recargar la lista cuando se crea exitosamente
+    this.loadEspecificaciones();
+    this.showForm = false;
   }
 }

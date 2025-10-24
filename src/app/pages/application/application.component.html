@@ -1,7 +1,21 @@
 <app-animated-background class="fixed inset-0 -z-10"></app-animated-background>
 
-<div class="container mx-auto px-6 py-24">  <!-- Aumenta el padding superior -->
-  <h1 class="text-6xl font-bold text-center mb-16 text-white drop-shadow-lg">Ofertas de Trabajo</h1>  <!-- Título más grande -->
+<div class="container mx-auto px-6 py-24">
+  <div class="mb-2">
+    <h1 class="text-7xl text-center font-bold text-white drop-shadow-lg mb-6">Ofertas de Trabajo</h1>
+    <p class="text-xl text-center text-gray-300 mb-8">Gestiona y publica nuevas oportunidades laborales</p>
+
+    <div class="flex justify-center mb-2 mb-10">
+      <button *ngIf="!showForm && !selectedOferta"
+              (click)="showCreateForm()"
+              class="group relative px-8 py-4 bg-gradient-to-r from-blue-600 via-indigo-600 to-purple-700 hover:from-blue-700 hover:via-indigo-700 hover:to-purple-800 text-white text-lg font-bold rounded-2xl transition-all duration-300 shadow-2xl hover:shadow-blue-500/25 transform hover:scale-105 cursor-pointer border-2 border-blue-400/50 hover:border-blue-300">
+        <div class="flex items-center gap-3">
+          <span class="text-2xl group-hover:rotate-180 transition-transform duration-500">✨</span>
+          <span>Crear Nueva Oferta</span>
+        </div>
+        <div class="absolute inset-0 bg-gradient-to-r from-white/20 to-transparent opacity-0 group-hover:opacity-100 rounded-2xl transition-opacity duration-300"></div>
+      </button>
+    </div>
 
   <!-- Error Message -->
   <div *ngIf="error" class="bg-red-900/50 border border-red-500 text-red-200 px-4 py-3 rounded mb-6">
@@ -11,9 +25,14 @@
   <!-- Loading -->
   <div *ngIf="loading" class="text-center text-gray-300">Cargando ofertas...</div>
 
-  <!-- Tabla de Especificaciones -->
-  <div *ngIf="!loading && !selectedOferta" class="bg-gray-800/50 rounded-xl p-8 shadow-xl backdrop-blur-sm">
-    <h2 class="text-3xl font-semibold text-indigo-300 mb-6">Especificaciones</h2>  <!-- Subtítulo más grande -->
+  <!-- Formulario de creación -->
+  <div *ngIf="showForm">
+    <app-create-job-form (onSuccess)="onFormSuccess()" (onCancel)="hideCreateForm()"></app-create-job-form>
+  </div>
+
+  <!-- Tabla de Especificaciones (solo cuando no se muestra el formulario) -->
+  <div *ngIf="!loading && !selectedOferta && !showForm" class="bg-gray-800/50 rounded-xl p-8 shadow-xl backdrop-blur-sm">
+    <h2 class="text-3xl font-semibold text-indigo-300 mb-6">Especificaciones</h2>
     <div class="overflow-x-auto">
       <table class="w-full text-left text-gray-300">
         <thead class="bg-gray-700/50">
@@ -42,16 +61,16 @@
             <td class="px-4 py-3">{{ espec.experiencia_minima }}</td>
             <td class="px-4 py-3">{{ espec.numero_vacantes }}</td>
             <td class="px-4 py-3">
-              <div class="flex gap-1">
+              <div class="flex gap-2">
                 <button (click)="onSelectEspecificacion(espec.ID)"
-                        class="cursor-pointer p-2 text-gray-400 hover:text-indigo-300 hover:bg-indigo-600/20 rounded-lg transition-all duration-200 hover:scale-110"
+                        class="p-3 bg-blue-600/20 hover:bg-blue-600/40 text-blue-400 hover:text-blue-300 rounded-lg transition-all duration-200 hover:scale-110 border border-blue-500/30 hover:border-blue-400/50 cursor-pointer"
                         title="Ver Detalles">
-                  🔍
+                  <span class="text-lg">🔍</span>
                 </button>
                 <button (click)="onDeleteEspecificacion(espec.ID)"
-                        class="cursor-pointer p-2 text-red-500 hover:text-red-400 hover:bg-red-600/20 rounded-lg transition-all duration-200 hover:scale-110"
+                        class="p-3 bg-red-600/20 hover:bg-red-600/40 text-red-400 hover:text-red-300 rounded-lg transition-all duration-200 hover:scale-110 border border-red-500/30 hover:border-red-400/50 cursor-pointer"
                         title="Eliminar">
-                  ❌
+                  <span class="text-lg">✖️</span>
                 </button>
               </div>
             </td>
@@ -64,11 +83,16 @@
    <!-- Detalle de Oferta -->
   <div *ngIf="selectedOferta" class="bg-gray-800/50 rounded-xl p-8 shadow-xl backdrop-blur-sm">
     <div class="flex justify-between items-center mb-6">
-      <h2 class="text-4xl font-semibold text-indigo-300">{{ selectedOferta.titulo }}</h2>  <!-- Título del detalle más grande -->
-      <button (click)="closeDetalle()" 
-              class="cursor-pointer px-4 py-2 bg-gray-600 hover:bg-gray-700 text-white rounded-lg transition-colors">
-        Cerrar
-      </button>
+      <h2 class="text-4xl font-semibold text-indigo-300">{{ selectedOferta.titulo }}</h2>
+      <div class="flex gap-3">
+        <button (click)="closeDetalle()"
+                class="px-6 py-3 bg-gray-600/80 hover:bg-gray-500 text-white rounded-xl font-medium transition-all duration-300 backdrop-blur-sm border border-gray-500/50 hover:border-gray-400 cursor-pointer">
+          <div class="flex items-center gap-2">
+            <span class="text-lg">✖️</span>
+            <span>Cerrar</span>
+          </div>
+        </button>
+      </div>
     </div>
     <div class="grid md:grid-cols-2 gap-8">
       <div>
@@ -87,8 +111,12 @@
       </div>
     </div>
     <div class="mt-8 text-center">
-      <button class="cursor-pointer px-8 py-4 bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-700 hover:to-purple-700 text-white rounded-xl font-semibold transition-all duration-300 shadow-lg">
-        Postular Ahora
+      <button class="group relative px-8 py-4 bg-gradient-to-r from-green-600 via-emerald-600 to-green-700 hover:from-green-700 hover:via-emerald-700 hover:to-green-800 text-white text-lg font-bold rounded-2xl transition-all duration-300 shadow-2xl hover:shadow-green-500/25 transform hover:scale-105 border-2 border-green-400/50 hover:border-green-300 cursor-pointer">
+        <div class="flex items-center gap-3">
+          <span class="text-2xl">🚀</span>
+          <span>Postular Ahora</span>
+        </div>
+        <div class="absolute inset-0 bg-gradient-to-r from-white/20 to-transparent opacity-0 group-hover:opacity-100 rounded-2xl transition-opacity duration-300"></div>
       </button>
     </div>
   </div>

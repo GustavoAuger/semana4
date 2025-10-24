@@ -1,8 +1,7 @@
-// src/app/pages/home/home.component.ts
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { AnimatedBackgroundComponent } from '../../shared/components/animated-background/animated-background.component';
-import { RoadmapComponent } from '../../shared/components/roadmap/roadmap.component';
+import { RoadmapComponent } from '../application/components/roadmap/roadmap.component';
 import { RouterLink } from '@angular/router';
 
 @Component({
