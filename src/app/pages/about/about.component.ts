@@ -22,4 +22,11 @@ export class AboutComponent {
     { name: 'SQL', icon: '🗃️', levelPercentage: 80 },
     { name: 'Python', icon: '🐍', levelPercentage: 75 }
   ];  
+
+  scrollToSkills() {
+    const skillsSection = document.getElementById('skills');
+    if (skillsSection) {
+      skillsSection.scrollIntoView({ behavior: 'smooth' });
+    }
+  }
 }
