@@ -53,7 +53,6 @@ export class CreateJobFormComponent {
       salario_modalidad: ['Mensual', Validators.required],
       salario_moneda: ['USD', Validators.required],
       salario_mostrar: [1, Validators.required],
-      solicitud_id: [1000, [Validators.required, Validators.min(1000)]],
 
       // Campos de la especificación
       numero_vacantes: [1, [Validators.required, Validators.min(1)]],
@@ -91,7 +90,7 @@ export class CreateJobFormComponent {
         salario_modalidad: this.jobForm.value.salario_modalidad,
         salario_moneda: this.jobForm.value.salario_moneda,
         salario_mostrar: this.jobForm.value.salario_mostrar,
-        solicitud_id: this.jobForm.value.solicitud_id
+        solicitud_id: 1 //hardcodeado
       };
 
       console.log('📤 Enviando oferta:', ofertaData);

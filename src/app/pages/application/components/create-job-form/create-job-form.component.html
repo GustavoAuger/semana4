@@ -206,21 +206,6 @@
             </div>
           </div>
 
-          <!-- Solicitud ID -->
-          <div>
-            <label for="solicitud_id" class="block text-sm font-medium text-gray-300 mb-2">
-              ID de Solicitud *
-            </label>
-            <input type="number"
-                   id="solicitud_id"
-                   formControlName="solicitud_id"
-                   class="form-field-input"
-                   placeholder="1000">
-            <div *ngIf="jobForm.get('solicitud_id')?.invalid && jobForm.get('solicitud_id')?.touched" class="error-message">
-              El ID de solicitud es requerido y debe ser mayor o igual a 1000
-            </div>
-          </div>
-
           <div>
             <label for="salario_mostrar" class="block text-sm font-medium text-gray-300 mb-2">
               Mostrar Salario *
