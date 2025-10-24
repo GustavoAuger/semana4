@@ -67,6 +67,8 @@ export class ApplicationComponent implements OnInit {
           if (this.selectedOferta && this.selectedOferta.ID === this.selectedIdForDelete) {
             this.selectedOferta = null;
           }
+          // Recargar la lista inmediatamente después de eliminar
+          this.loadEspecificaciones();
           // Mostrar mensaje de éxito
           this.deleteSuccessMessage = 'Especificación eliminada exitosamente';
           this.deleteConfirmMessage = ''; // Ocultar modal de confirmación
@@ -86,11 +88,6 @@ export class ApplicationComponent implements OnInit {
     this.selectedIdForDelete = null;
   }
 
-  closeDeleteSuccessMessage() {
-    this.deleteSuccessMessage = ''; // Ocultar mensaje de éxito de eliminación
-    this.loadEspecificaciones(); // Recargar la lista al aceptar
-  }
-
   closeDetalle() {
     this.selectedOferta = null;
   }
@@ -104,12 +101,18 @@ export class ApplicationComponent implements OnInit {
   }
 
   onFormSuccess() {
+    // Recargar la lista inmediatamente después de crear
+    this.loadEspecificaciones();
     // Mostrar mensaje de éxito y ocultar el formulario
     this.successMessage = 'Oferta creada exitosamente'; // Mostrar mensaje de éxito
     this.showForm = false;
   }
 
+  closeDeleteSuccessMessage() {
+    this.deleteSuccessMessage = '';
+  }
+
   closeSuccessMessage() {
-    this.successMessage = ''; // Ocultar mensaje de éxito
+    this.successMessage = ''; // Ocultar mensaje de éxito sin recargar de nuevo
   }
 }
